@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samsung Lockscreen AU</title>
+    <title>Interactive AU - Lockscreen & Apps</title>
     <link rel="stylesheet" href="style.css">
     <!-- Google Material Icons untuk ikon realistis -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -13,46 +13,172 @@
     <!-- Bingkai Layar HP 6.7 Inch -->
     <div class="phone-frame-67">
         
-        <!-- Samsung Status Bar -->
-        <div class="samsung-status-bar">
-            <span>10:16</span>
+        <!-- Status Bar Global (TSEL, Wi-Fi 5, Kapsul Baterai 88) -->
+        <div class="vivo-status-bar">
+            <div class="status-left">
+                <span class="operator-name">TSEL</span>
+                <div class="notif-icons">
+                    <span class="material-symbols-outlined app-notif-icon">phone_android</span>
+                    <span class="app-icon-tiktok">♪</span> 
+                </div>
+            </div>
             <div class="status-right">
-                <span class="material-symbols-outlined" style="font-size: 14px;">signal_cellular_alt</span>
-                <span class="material-symbols-outlined" style="font-size: 14px;">wifi</span>
-                <span style="font-size: 11px;">85%</span>
-                <span class="material-symbols-outlined" style="font-size: 14px;">battery_full</span>
+                <div class="wifi-signal-group">
+                    <span class="material-symbols-outlined wifi-icon">wifi</span>
+                    <span class="wifi-sub-text">5</span>
+                </div>
+                <span class="material-symbols-outlined">signal_cellular_alt</span>
+                <div class="battery-capsule">
+                    <span>88</span>
+                </div>
             </div>
         </div>
 
-        <!-- Konten Lockscreen -->
-        <div class="lockscreen-content">
-            <!-- Ikon Gembok Atas -->
-            <div class="lock-padlock">
-                <span class="material-symbols-outlined">lock</span>
+        <!-- ================= LAYAR 1: LOCKSCREEN ================= -->
+        <div id="lockscreen" class="screen active">
+            <div class="lockscreen-content">
+                <!-- Ikon Gembok Standar -->
+                <div class="lock-padlock">
+                    <span class="material-symbols-outlined">lock</span>
+                </div>
+                
+                <!-- Jam Digital Bold Sesuai Referensi -->
+                <div class="samsung-clock">
+                    <h1 class="clock-time">10:16</h1>
+                    <p class="clock-date">Sun, 8 November</p>
+                </div>
+
+                <!-- Notifikasi Cepat -->
+                <div class="notification-pill" onclick="goToHomeScreen()">
+                    <span class="notif-dot"></span>
+                    <span>Tubatu: Pesan baru menunggumu...</span>
+                </div>
             </div>
 
-            <!-- Jam Digital dengan Font Sangat Bold -->
-            <div class="samsung-clock">
-                <h1 class="clock-time">10:16</h1>
-                <p class="clock-date">Sun, 8 November</p>
-            </div>
-        </div>
-
-        <!-- Shortcut & Navigasi Bawah -->
-        <div class="lockscreen-bottom">
-            <div class="shortcut-btn">
-                <span class="material-symbols-outlined">call</span>
+            <!-- Bagian Bawah Lockscreen -->
+            <div class="lockscreen-bottom">
+                <div class="shortcut-btn"><span class="material-symbols-outlined">call</span></div>
+                <div class="unlock-hint" onclick="goToHomeScreen()">Ketuk untuk Membuka</div>
+                <div class="shortcut-btn"><span class="material-symbols-outlined">photo_camera</span></div>
             </div>
             
-            <!-- Garis Navigasi Gesture One UI -->
-            <div class="oneui-gesture-bar"></div>
+            <div class="oneui-gesture-bar" onclick="goToHomeScreen()"></div>
+        </div>
 
-            <div class="shortcut-btn">
-                <span class="material-symbols-outlined">photo_camera</span>
+        <!-- ================= LAYAR 2: HOMESCREEN ================= -->
+        <div id="homescreen" class="screen">
+            <div class="home-grid">
+                <!-- Aplikasi Pesan / Chat -->
+                <div class="app-icon" onclick="openChatApp()">
+                    <div class="app-logo chat-logo">
+                        <span class="material-symbols-outlined">chat</span>
+                    </div>
+                    <span>Pesan</span>
+                </div>
+                <!-- Aplikasi Galeri Foto -->
+                <div class="app-icon" onclick="openApp('galleryapp')">
+                    <div class="app-logo gallery-logo">
+                        <span class="material-symbols-outlined">photo_library</span>
+                    </div>
+                    <span>Galeri</span>
+                </div>
+                <!-- Aplikasi Catatan Rahasia -->
+                <div class="app-icon" onclick="openApp('notesapp')">
+                    <div class="app-logo notes-logo">
+                        <span class="material-symbols-outlined">description</span>
+                    </div>
+                    <span>Catatan</span>
+                </div>
             </div>
+            <div class="oneui-gesture-bar"></div>
+        </div>
+
+        <!-- ================= LAYAR 3: APLIKASI CHAT ================= -->
+        <div id="chatapp" class="screen">
+            <div class="app-header">
+                <span class="material-symbols-outlined back-btn" onclick="backToHome()">arrow_back</span>
+                <div class="profile-pic">T</div>
+                <div class="contact-info">
+                    <h4>Tubatu</h4>
+                    <span class="status-online">online</span>
+                </div>
+            </div>
+            <div class="chat-container" id="chatContainer">
+                <div class="message incoming">
+                    <p>Akhirnya kamu buka juga web AU-nya. Sini temenin aku ngobrol.</p>
+                    <span class="time">10:17</span>
+                </div>
+            </div>
+            <div class="oneui-gesture-bar"></div>
+        </div>
+
+        <!-- ================= LAYAR 4: GALERI FOTO ================= -->
+        <div id="galleryapp" class="screen">
+            <div class="app-header">
+                <span class="material-symbols-outlined back-btn" onclick="backToHome()">arrow_back</span>
+                <h3>Galeri Rahasia</h3>
+            </div>
+            <div class="app-body gallery-grid">
+                <div class="photo-card"><img src="photo_2026-11-08_10-20-44.jpg" alt="Bukti 1"></div>
+                <div class="photo-card locked"><span class="material-symbols-outlined">lock</span></div>
+            </div>
+            <div class="oneui-gesture-bar"></div>
+        </div>
+
+        <!-- ================= LAYAR 5: CATATAN RAHASIA ================= -->
+        <div id="notesapp" class="screen">
+            <div class="app-header">
+                <span class="material-symbols-outlined back-btn" onclick="backToHome()">arrow_back</span>
+                <h3>Catatan Penting</h3>
+            </div>
+            <div class="app-body notes-container">
+                <div class="note-card">
+                    <h4>Password Ruang Bawah Tanah</h4>
+                    <p>Jangan sampai orang lain tahu. Kodenya adalah: <strong>333</strong></p>
+                    <span class="note-date">Dibuat: 8 November</span>
+                </div>
+            </div>
+            <div class="oneui-gesture-bar"></div>
         </div>
 
     </div>
 
+    <!-- Elemen Audio / Suara Efek (Opsional) -->
+    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+
+    <!-- Script JavaScript Transisi & Navigasi -->
+    <script>
+        function playClickAudio() {
+            const audio = document.getElementById('clickSound');
+            audio.currentTime = 0;
+            audio.play().catch(error => console.log("Audio diblokir browser:", error));
+        }
+
+        function goToHomeScreen() {
+            playClickAudio();
+            document.getElementById('lockscreen').classList.remove('active');
+            document.getElementById('homescreen').classList.add('active');
+        }
+
+        function openChatApp() {
+            playClickAudio();
+            document.getElementById('homescreen').classList.remove('active');
+            document.getElementById('chatapp').classList.add('active');
+        }
+
+        function openApp(appId) {
+            playClickAudio();
+            document.getElementById('homescreen').classList.remove('active');
+            document.getElementById(appId).classList.add('active');
+        }
+
+        function backToHome() {
+            playClickAudio();
+            document.getElementById('chatapp').classList.remove('active');
+            document.getElementById('galleryapp').classList.remove('active');
+            document.getElementById('notesapp').classList.remove('active');
+            document.getElementById('homescreen').classList.add('active');
+        }
+    </script>
 </body>
 </html>
